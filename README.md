@@ -18,4 +18,19 @@ install(FILES  "/usr/local/lib/libtbb.so" DESTINATION /usr/local/lib )
 install(FILES  "/usr/local/lib/libtbbmalloc.so" DESTINATION /usr/local/lib )
 install(FILES  "/usr/local/lib/libtbbmalloc_proxy.so" DESTINATION /usr/local/lib )
 
+include( FindPackageHandleStandardArgs )
+set( AMQPCPP_DIR "/usr/local/" )
+find_library(AMQPCPP_LIBRARY NAMES amqpcpp HINTS ${AMQPCPP_DIR})
+find_path(AMQPCPP_INCLUDE_DIR amqpcpp.h HINTS ${AMQPCPP_DIR})
+
+find_package_handle_standard_args(AMQPCPP DEFAULT_MSG AMQPCPP_INCLUDE_DIR AMQPCPP_LIBRARY)
+
+if(AMQPCPP_FOUND)
+  set( AMQPCPP_INCLUDE_DIRS ${AMQPCPP_INCLUDE_DIR} )
+  set( AMQPCPP_LIBRARIES ${AMQPCPP_LIBRARY} )
+  mark_as_advanced(AMQPCPP_LIBRARY AMQPCPP_INCLUDE_DIR AMQPCPP_DIR)
+else()
+  set( AMQPCPP_DIR "" CACHE STRING "An optional hint to a directory for finding `AMQPCPP`")
+endif()
+
 ```
