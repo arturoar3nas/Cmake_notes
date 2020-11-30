@@ -8,8 +8,10 @@ FOREACH(LIB ${OpenCV_LIBS})
   install(FILES "/usr/lib64/lib${LIB}.so.${OpenCV_VERSION_MAJOR}.${OpenCV_VERSION_MINOR}.${OpenCV_VERSION_PATCH}" DESTINATION /usr/lib64 )
 ENDFOREACH(LIB)
 
-FOREACH(LIB ${Boost_LIBRARIES})
-   message(STATUS "Boost: ${LIB} => ${LIB}.${Boost_VERSION_STRING}")
+FOREACH(LIB ${Boost_LIBRARIES}) 
+    message(STATUS "Boost: ${LIB} => ${LIB}.${Boost_VERSION_STRING}")
+    install(FILES ${LIB} DESTINATION /usr/lib64)
+    install(FILES ${LIB}.${Boost_VERSION_STRING} DESTINATION /usr/lib64)
 ENDFOREACH(LIB)
 
 FOREACH(LIB ${TBB_LIBRARIES})
