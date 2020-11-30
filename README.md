@@ -1,6 +1,15 @@
 # Cmake_notes
 some notes
 
+
+```cmake
+set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+find_package (Matlab) # runs FindMatlab.cmake
+include(TestInline) # defines a macro:
+test_inline (CONFIG_C_INLINE)
+include(stdint) # simply executes flat CMake code
+```
+
 ```cmake
 FOREACH(LIB ${OpenCV_LIBS})
   install(FILES "/usr/lib64/lib${LIB}.so" DESTINATION /usr/lib64 )
