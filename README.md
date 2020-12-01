@@ -1,6 +1,6 @@
 # Cmake_notes
-some notes
 
+Installing and Packaging
 
 ```cmake
 set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -17,12 +17,15 @@ FOREACH(LIB ${OpenCV_LIBS})
   install(FILES "/usr/lib64/lib${LIB}.so.${OpenCV_VERSION_MAJOR}.${OpenCV_VERSION_MINOR}.${OpenCV_VERSION_PATCH}" DESTINATION /usr/lib64 )
 ENDFOREACH(LIB)
 
+``` 
+```cmake
 FOREACH(LIB ${Boost_LIBRARIES}) 
     message(STATUS "Boost: ${LIB} => ${LIB}.${Boost_VERSION_STRING}")
     install(FILES ${LIB} DESTINATION /usr/lib64)
     install(FILES ${LIB}.${Boost_VERSION_STRING} DESTINATION /usr/lib64)
 ENDFOREACH(LIB)
-
+``` 
+```cmake
 FOREACH(LIB ${TBB_LIBRARIES})
   install(FILES ${LIBS} DESTINATION /usr/local/lib)
 ENDFOREACH(LIB)
@@ -32,7 +35,8 @@ install(FILES ${TBB_LIBRARIES} DESTINATION /usr/local/lib )
 install(FILES  "/usr/local/lib/libtbb.so" DESTINATION /usr/local/lib )
 install(FILES  "/usr/local/lib/libtbbmalloc.so" DESTINATION /usr/local/lib )
 install(FILES  "/usr/local/lib/libtbbmalloc_proxy.so" DESTINATION /usr/local/lib )
-
+```
+```cmake
 include( FindPackageHandleStandardArgs )
 set( AMQPCPP_DIR "/usr/local/" )
 find_library(AMQPCPP_LIBRARY NAMES amqpcpp HINTS ${AMQPCPP_DIR})
