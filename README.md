@@ -1,5 +1,26 @@
 # Cmake_notes
 
+CPACK Properties
+
+```cmake
+#
+# CPack Properties
+#
+set(CPACK_PACKAGE_NAME "package_name")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "")
+set(CPACK_PACKAGE_VENDOR "company")
+set(CPACK_PACKAGE_VERSION_MAJOR "1")
+set(CPACK_PACKAGE_VERSION_MINOR "1")
+set(CPACK_PACKAGE_VERSION_PATCH "1")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "CMake ${CMake_VERSION_MAJOR}.${CMake_VERSION_MINOR}")
+set(CPACK_GENERATOR "RPM")
+set(CPACK_RPM_COMPONENT_INSTALL ON)
+set(CPACK_RPM_PACKAGE_AUTOREQPROV NO)
+set(CPACK_RPM_PACKAGE_REQUIRES "gtk2, ffmpeg, libev, boost, openssl, gsl")
+include(CPack)
+
+```
+
 Installing and Packaging
 
 ```cmake
