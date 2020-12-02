@@ -20,6 +20,21 @@ set(CPACK_RPM_PACKAGE_REQUIRES "gtk2, ffmpeg, libev, boost, openssl, gsl")
 include(CPack)
 
 ```
+Lazy Installing 
+
+```cmake 
+ include(GetPrerequisites)
+ 
+ set(BINARY_LOCATION "${MAINFOLDER}/bin/${BIN}")
+ get_prerequisites(${BINARY_LOCATION} DEPENDENCIES 0 0 "" "")
+ 
+ foreach(DEPENDENCY_FILE ${DEPENDENCIES})
+   get_filename_component(DEPENDENCY_NAME "${DEPENDENCY_FILE}" NAME)
+   get_filename_component(DEPENDENCY "${DEPENDENCY_FILE}" REALPATH)
+   get_filename_component(DEPENDENCY_PATH "${DEPENDENCY}" DIRECTORY)
+   install(FILES ${DEPENDENCY} DESTINATION "${DEPENDENCY_PATH}" )
+ endforeach()
+```
 
 Installing and Packaging
 
