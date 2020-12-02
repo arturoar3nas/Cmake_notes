@@ -89,3 +89,18 @@ else()
 endif()
 
 ```
+```cmake 
+include(FindPackageHandleStandardArgs)
+
+find_path(ARAVIS_INCLUDE_PATH arv.h "$ENV{ARAVIS_INCLUDE_PATH}" /usr/local/include/aravis-0.8)
+find_library(ARAVIS_LIBRARY aravis-0.8 "$ENV{ARAVIS_LIBRARY}" /usr/local/lib64)
+find_package_handle_standard_args(ARAVIS DEFAULT_MSG ARAVIS_INCLUDE_PATH ARAVIS_LIBRARY)
+
+if(ARAVIS_FOUND)
+  get_filename_component(ARAVIS_RESOLVED ${ARAVIS_LIBRARY} REALPATH)
+  get_filename_component(ARAVIS_PATH "${ARAVIS_RESOLVED}" DIRECTORY)
+  message(STATUS "Aravis: ${ARAVIS_RESOLVED} ${ARAVIS_LIBRARY}.0")
+  install(FILES "${ARAVIS_LIBRARY}.0" DESTINATION ${ARAVIS_PATH})
+  install(FILES ${ARAVIS_RESOLVED} DESTINATION ${ARAVIS_PATH})
+endif() 
+```
