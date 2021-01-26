@@ -2,6 +2,59 @@
 
 CPACK Properties
 
+# Filtering all dependencies with file (dependencies.list)
+
+```
+/lib64/libpcre2-8.so.0
+/lib64/libselinux.so.1
+/lib64/libc.so.6
+/lib64/libcap.so.2
+/lib64/libgpg-error.so.0
+/lib64/libgmp.so.10
+/lib64/libexpat.so.1
+/lib64/libcom_err.so.2
+/lib64/libgcrypt.so.20
+/lib64/libffi.so.6
+/lib64/libp11-kit.so.0
+/lib64/liblz4.so.1
+/lib64/libkeyutils.so.1
+/lib64/libnettle.so.6
+/lib64/libgssapi_krb5.so.2
+/lib64/libkrb5.so.3
+/lib64/libkrb5support.so.0
+/lib64/libblkid.so.1
+/lib64/libmount.so.1
+/lib64/libdbus-1.so.3
+
+```
+
+```cmake 
+file(STRINGS "${MAINFOLDER}/dependencies.list" OUTPUT)
+
+foreach(DEPENDENCY_FILE ${DEPENDENCIES})
+  set(exlude FALSE)
+  foreach(OP ${OUTPUT})
+    #message(STATUS "${MAINFOLDER}/dependencies.list: ${OP}")
+    if(${OP} MATCHES ${DEPENDENCY_FILE})
+      message(STATUS "excluding from package: ${OP}")
+      set(exclude TRUE)
+    endif()
+  endforeach()
+
+  if(NOT exclude)
+    get_filename_component(DEPENDENCY_NAME "${DEPENDENCY_FILE}" NAME)
+    get_filename_component(DEPENDENCY "${DEPENDENCY_FILE}" REALPATH)
+    get_filename_component(DEPENDENCY_PATH "${DEPENDENCY}" DIRECTORY)
+    install(FILES ${DEPENDENCY} DESTINATION "${DEPENDENCY_PATH}" )
+    message(STATUS "installing : ${DEPENDENCY_FILE}")
+  endif()
+endforeach()
+
+
+```
+
+# Basic CPack
+
 ```cmake
 #
 # CPack Properties
